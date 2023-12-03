@@ -21,7 +21,7 @@ for line in lines:
                 vals[i]=char
             else:
                 vals[i]=vals[i]+char
-    i=i+1
+    i+=1
 
 # Fix all the values to be first and last digit (or duplicate the first)
 j=0
@@ -30,7 +30,7 @@ for val in vals:
         vals[j]=val[0]+val[0]
     if len(val) > 2:
         vals[j]=val[0]+val[len(val)-1]
-    j=j+1
+    j+=1
 
 
 # Sum up all of the numbers
