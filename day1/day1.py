@@ -26,7 +26,7 @@ def first_and_last_only(val):
 
 def sum_number_string_vals(string_vals):
     # This function converts all number string values in a
-    # list to integers, sums them up, and prints the sum.
+    # list to integers and sums them up
     big_sum=0
     for number in string_vals:
         big_sum = big_sum + int(number)
@@ -47,7 +47,7 @@ def main():
     # Loop through every line, then every character on every line and
     # either extract a number or a number word
     for line in lines:
-        print(line)
+        
         chars = [x for x in line]
         i=0
         while i < len(chars):
@@ -71,12 +71,9 @@ def main():
                 else:
                     vals[v] = vals[v] + chars[i]
                 i=i+1
-        print(vals[v])
-        vals[v]=first_and_last_only(vals[v])
-        print(vals[v])
-        v=v+1
 
-    #vals = first_and_last_only(vals)
+        vals[v]=first_and_last_only(vals[v])
+        v=v+1
 
     answer = sum_number_string_vals(vals)
     print("The sum is " + str(answer))
