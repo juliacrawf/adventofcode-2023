@@ -21,10 +21,7 @@ def extract_number_string(random_string, index):
 
 def first_and_last_only(val):
     # Reduce the number string to just first and last digits (or duplicate first)
-    if len(val) < 2:
-        val = val[0] + val[0]
-    if len(val) > 2:
-        val = val[0] + val[len(val) - 1]
+    val = val[0] + val[len(val) - 1]
     return val
 
 def sum_number_string_vals(string_vals):
@@ -39,7 +36,7 @@ def sum_number_string_vals(string_vals):
 def main():
     filename = "day1input.txt"
     example_filename = "day1part2inputexample.txt"
-    lines = file_reader(example_filename)
+    lines = file_reader(filename)
 
     # Initialize numbers list and other vars
     vals = [""] * len(lines)
