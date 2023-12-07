@@ -14,7 +14,7 @@ def extract_number_string(random_string, index):
         found_index = random_string[index:index+len(word)].find(word)
         if found_index != -1:
             number_as_string = str(words.index(word))
-            return number_as_string, found_index+len(word)
+            return number_as_string, found_index+len(word)-1
 
     if found_index == -1:
         return "", found_index
@@ -47,7 +47,7 @@ def main():
     # Loop through every line, then every character on every line and
     # either extract a number or a number word
     for line in lines:
-        
+        print(line)
         chars = [x for x in line]
         i=0
         while i < len(chars):
