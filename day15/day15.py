@@ -85,9 +85,9 @@ def main():
     while box_index < len(boxes):
         box = boxes[box_index]
         lenses = [x + "]" for x in box.split("]") if x]
+        slot = 1
         for lens in lenses:
             lens_label = lens[1:lens.index(" ")]
-            slot = 1
             while slot < len(lenses)+1:
                 if lens_label in lenses[slot-1]:
                     break
