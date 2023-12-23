@@ -48,33 +48,34 @@ def main():
     filename = "day15input.txt"
 
     list_hash_strings = file_reader(filename)
-    #list_hash_strings=("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7").split(",")
-    
+    #list_hash_strings = ("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7").split(",")
+    #list_hash_strings=("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7,gzktrh=3,cg=4,rh=6,rh-,gzktrh=1,xzh=2,rh-").split(",")
+
     labels_operations_focals=parse_steps(list_hash_strings)
     boxes = [""] * 256
 
     i=0
     print("-----FILL BOXES-----")
     while i < len(labels_operations_focals[0]):
-        #print("After: " + labels_operations_focals[0][i]+labels_operations_focals[1][i]+labels_operations_focals[2][i])
+        print("After: " + labels_operations_focals[0][i]+labels_operations_focals[1][i]+labels_operations_focals[2][i])
         box_index = apply_hash(labels_operations_focals[0][i])
-        #print("(before) Box " + str(box_index) + boxes[box_index])
+        print("(before) Box " + str(box_index) + boxes[box_index])
         lens_start_string = "[" + labels_operations_focals[0][i] + " "
         lens_start_index = (boxes[box_index]).find(lens_start_string)
         if lens_start_index == -1:
             lens_start_index=0
 
         if labels_operations_focals[1][i] == "-":
-            if labels_operations_focals[0][i] in boxes[box_index]:
+            if ("[" + labels_operations_focals[0][i] + " ") in boxes[box_index]:
                 boxes[box_index]=boxes[box_index][0:lens_start_index] + boxes[box_index][lens_start_index+len(lens_start_string)+2:len(boxes[box_index])]
 
         if labels_operations_focals[1][i] == "=":
             new_lens = "[" + labels_operations_focals[0][i] + " " + labels_operations_focals[2][i] + "]"
-            if labels_operations_focals[0][i] in boxes[box_index]:
+            if ("["+labels_operations_focals[0][i] + " ") in boxes[box_index]:
                 boxes[box_index] = boxes[box_index][0:lens_start_index] + new_lens + boxes[box_index][lens_start_index + len(lens_start_string)+2:len(boxes[box_index])]
             else:
-                boxes[box_index]=boxes[box_index]+(new_lens)
-        #print("(after) Box " + str(box_index) + boxes[box_index])
+                boxes[box_index]=boxes[box_index]+new_lens
+        print("(after) Box " + str(box_index) + boxes[box_index])
         i = i+1
 
     sum_powers=0
