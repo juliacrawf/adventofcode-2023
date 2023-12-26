@@ -13,7 +13,7 @@ def parse_steps(steps):
             operations[i]="="
             labels[i] = step[0:step.find("=")]
             focal_lengths[i] = step[step.find("=")+1:len(step)]
-        i = i+1
+        i += 1
     return labels, operations, focal_lengths
 
 def apply_hash(input_string):
@@ -45,10 +45,10 @@ def file_reader(filename):
 
 def main():
     filename = "day15input.txt"
+    #filename = "day15inputexample.txt"
 
     list_hash_strings = file_reader(filename)
-    #list_hash_strings = ("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7").split(",") #,ot=1,ab=2,pc=3,ab-
-    #list_hash_strings=("rvg=2,ctnb=7,pqfv=1").split(",")
+    #list_hash_strings = ("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7").split(",")
 
     labels_operations_focals=parse_steps(list_hash_strings)
     boxes = [""] * 256
@@ -56,9 +56,7 @@ def main():
     i=0
     print("-----FILL BOXES-----")
     while i < len(labels_operations_focals[0]):
-        print("After: " + labels_operations_focals[0][i]+labels_operations_focals[1][i]+labels_operations_focals[2][i])
         box_index = apply_hash(labels_operations_focals[0][i])
-        print("(before) Box " + str(box_index) + boxes[box_index])
         lens_start_string = "[" + labels_operations_focals[0][i] + " "
         lens_start_index = (boxes[box_index]).find(lens_start_string)
 
@@ -71,8 +69,11 @@ def main():
                 boxes[box_index] = boxes[box_index][0:lens_start_index] + new_lens + boxes[box_index][lens_start_index + len(lens_start_string)+2:len(boxes[box_index])]
             else:
                 boxes[box_index]=boxes[box_index]+new_lens
-        print("(after) Box " + str(box_index) + boxes[box_index])
-        i = i+1
+        i += 1
+
+    print("-----FINAL BOXES-----")
+    for b in boxes:
+        print("Box " + str(boxes.index(b)) + ": " + b)
 
     sum_powers=0
     count=0
@@ -82,20 +83,19 @@ def main():
     while count < len(boxes):
 
         box = boxes[count]
-        print("box " + str(count) + " " + box)
         lenses = [x + "]" for x in box.split("]") if x]
         slot = 1
         for lens in lenses:
-            lens_label = lens[1:lens.index(" ")]
+
+            lens_label = lens[1:lens.index(" ")+1]
             while slot < len(lenses)+1:
                 if lens_label in lenses[slot-1]:
                     break
-                slot = slot + 1
+                slot += 1
             lens_power=get_focusing_power(box,count,lens,lens_label,slot)
-            print(lens_label + ": " + str(lens_power))
-            sum_powers=sum_powers+lens_power
-        print("current sum powers = " + str(sum_powers))
-        count=count+1
+
+            sum_powers = sum_powers+lens_power
+        count += 1
 
     print(str(sum_powers))
 
