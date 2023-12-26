@@ -54,7 +54,7 @@ def main():
     boxes = [""] * 256
 
     i=0
-    print("-----FILL BOXES-----")
+
     while i < len(labels_operations_focals[0]):
         box_index = apply_hash(labels_operations_focals[0][i])
         lens_start_string = "[" + labels_operations_focals[0][i] + " "
@@ -71,14 +71,8 @@ def main():
                 boxes[box_index]=boxes[box_index]+new_lens
         i += 1
 
-    print("-----FINAL BOXES-----")
-    for b in boxes:
-        print("Box " + str(boxes.index(b)) + ": " + b)
-
     sum_powers=0
     count=0
-
-    print("-----GET BOX POWERS-----")
 
     while count < len(boxes):
 
